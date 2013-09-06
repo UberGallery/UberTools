@@ -15,7 +15,7 @@
         "email": "ubergallery@googlegroups.com"
     },
     "require": {
-        "php": ">=5.3.0",
-        "ext-gd" "*"
+        "php" : ">=5.3.0",
+        "ext-gd" : "*"
     }
 }
