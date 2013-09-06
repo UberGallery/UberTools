@@ -1,6 +1,6 @@
 {
-    "name": "ubergallery/ubergallery",
-    "description": "The simple PHP photo gallery",
+    "name": "ubergallery/ubertools",
+    "description": "UberGallery library and tools",
     "keywords": ["gallery", "photos", "thumbnails"],
     "homepage": "http://www.ubergallery.net",
     "license": "MIT",
