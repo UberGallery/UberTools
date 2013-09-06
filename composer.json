@@ -1,0 +1,21 @@
+{
+    "name": "ubergallery/ubergallery",
+    "description": "The simple PHP photo gallery",
+    "keywords": ["gallery", "photos", "thumbnails"],
+    "homepage": "http://www.ubergallery.net",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Kankiewicz",
+            "email": "Chris@ChrisKankiewicz.com",
+            "homepage": "http://www.chriskankiewicz.com"
+        }
+    ],
+    "support": {
+        "email": "ubergallery@googlegroups.com"
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "ext-gd" "*"
+    }
+}
