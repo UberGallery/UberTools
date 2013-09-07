@@ -306,6 +306,15 @@ class UberTools {
 
     }
 
+    /**
+     * Returns current version of the UberTools library
+     *
+     * @return string UberTools version
+     */
+    public function getVersion() {
+        return VERSION;
+    }
+
 
     /**
      * Set cache expiration time in minutes
