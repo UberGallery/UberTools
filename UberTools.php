@@ -3,10 +3,7 @@
 namespace UberGallery;
 
 /**
- * UberGallery is an easy to use, simple to manage, web photo gallery written in
- * PHP. UberGallery does not require a database and supports JPEG, GIF and PNG
- * file types. Simply upload your images and UberGallery will automatically
- * generate thumbnails and output standards complaint XHTML markup on the fly.
+ * UberTools is a PHP library for the UberGallery application.
  *
  * This software is distributed under the MIT License
  * http://www.opensource.org/licenses/mit-license.php
