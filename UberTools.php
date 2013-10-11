@@ -601,7 +601,7 @@ class UberTools {
 
         // If file is cached return relative path to thumbnail
         if ($this->_isFileCached($destination)) {
-            $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']); . '/' . $fileName;
+            $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']) . '/' . $fileName;
             return $relativePath;
         }
 
@@ -659,7 +659,7 @@ class UberTools {
         }
 
         // Return relative path to thumbnail
-        $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']); . '/' . $fileName;
+        $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']) . '/' . $fileName;
         return $relativePath;
     }
 
