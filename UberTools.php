@@ -80,7 +80,7 @@ class UberTools {
      */
     public function loadConfig($config) {
 
-        $this->setThumbnailDir($config['thumbnail_dir']);
+        $this->setThumbnailDirectory($config['thumbnail_dir']);
         $this->setThumbnailSize($config['thumbnail_width'], $config['thumbnail_height']);
         $this->setThumbnailQuality($config['thumbnail_quality']);
         $this->setTheme($config['theme']);
