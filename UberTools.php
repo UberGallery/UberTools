@@ -213,32 +213,9 @@ class UberTools {
      * @return string Theme name as set in user config
      * @access public
      */
-    public function getThemeName() {
+    public function getTheme() {
         // Return the theme name
         return $this->_config['theme'];
-    }
-
-
-    /**
-     * Returns the path to the chosen theme directory
-     *
-     * @param bool $absolute true = return absolute path / false = return relative path (default)
-     * @return string Path to theme
-     * @access public
-     */
-    public function getThemePath($absolute = false) {
-        if ($absolute) {
-            // Set the theme path
-            $themePath = $this->_appDir . '/themes/' . $this->_config['theme'];
-        } else {
-            // Get relative path to application dir
-            $realtivePath = $this->_getRelativePath(getcwd(), $this->_appDir);
-
-            // Set the theme path
-            $themePath = $realtivePath . '/themes/' . $this->_config['theme'];
-        }
-
-        return $themePath;
     }
 
 
