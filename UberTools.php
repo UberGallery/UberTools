@@ -18,7 +18,7 @@ namespace UberGallery;
 class UberTools {
 
     // Define application version
-    const VERSION = '0.1.0-dev';
+    const VERSION = '0.1.1-dev';
 
     // Reserve some variables
     protected $_config     = array();
@@ -31,9 +31,12 @@ class UberTools {
 
 
     /**
-     * UberGallery construct function. Runs on object creation.
+     * UberTools construct function. Runs on object creation.
      */
     public function __construct() {
+
+        // Define the OS specific directory separator
+        if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 
         // Get timestamp for the current time
         $this->_now = time();
@@ -52,33 +55,6 @@ class UberTools {
 
         // Set application directory
         $this->_appDir = __DIR__;
-
-        // Set configuration file path
-        $configPath = $this->_appDir . '/galleryConfig.ini';
-
-        // Read and apply gallery config or throw error on fail
-        if (file_exists($configPath)) {
-            // Parse gallery configuration
-            $config = parse_ini_file($configPath, true);
-
-            // Apply configuration
-            $this->setCacheExpiration($config['basic_settings']['cache_expiration']);
-            $this->setPaginatorThreshold($config['basic_settings']['paginator_threshold']);
-            $this->setThumbSize($config['basic_settings']['thumbnail_width'], $config['basic_settings']['thumbnail_height']);
-            $this->setThumbQuality($config['basic_settings']['thumbnail_quality']);
-            $this->setThemeName($config['basic_settings']['theme_name']);
-            $this->setSortMethod($config['advanced_settings']['images_sort_by'], $config['advanced_settings']['reverse_sort']);
-            $this->setCacheDirectory($this->_appDir . '/cache');
-
-            if ($config['basic_settings']['enable_pagination']) {
-                $this->setImagesPerPage($config['advanced_settings']['images_per_page']);
-            } else {
-                $this->setImagesPerPage(0);
-            }
-
-        } else {
-            die("Unable to read galleryConfig.ini, please make sure the file exists at: <pre>{$configPath}</pre>");
-        }
 
         // Get the relative thumbs directory path
         $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['cache_dir']);
@@ -105,6 +81,29 @@ class UberTools {
     public static function init() {
         $reflection = new ReflectionClass(__CLASS__);
         return $reflection->newInstanceArgs(func_get_args());
+    }
+
+
+    /**
+     *
+     */
+    public function loadConfig($config) {
+
+        // Apply configuration options
+        $this->setCacheExpiration($config['cache_expiration']);
+        $this->setPaginatorThreshold($config['paginator_threshold']);
+        $this->setThumbSize($config['thumbnail_width'], $config['thumbnail_height']);
+        $this->setThumbQuality($config['thumbnail_quality']);
+        $this->setThemeName($config['theme_name']);
+        $this->setSortMethod($config['images_sort_by'], $config['reverse_sort']);
+        $this->setCacheDirectory($this->_appDir . '/cache');
+
+        if ($config['enable_pagination']) {
+            $this->setImagesPerPage($config['images_per_page']);
+        } else {
+            $this->setImagesPerPage(0);
+        }
+
     }
 
 
@@ -1120,9 +1119,6 @@ class UberTools {
      * @access private
      */
     private function _getRelativePath($fromPath, $toPath) {
-
-        // Define the OS specific directory separator
-        if (!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
 
         // Remove double slashes from path strings
         $fromPath   = str_replace(DS . DS, DS, $fromPath);
