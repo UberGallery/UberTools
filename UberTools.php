@@ -303,7 +303,7 @@ class UberTools {
      * @return string UberTools version
      */
     public function getVersion() {
-        return VERSION;
+        return self::VERSION;
     }
 
 
