@@ -18,7 +18,7 @@ namespace UberGallery;
 class UberTools {
 
     // Define application version
-    const VERSION = '0.1.2-dev';
+    const VERSION = '0.1.3-dev';
 
     // Reserve some variables
     protected $_config     = array();
