@@ -18,7 +18,7 @@ namespace UberGallery;
 class UberTools {
 
     // Define application version
-    const VERSION = '0.1.1-dev';
+    const VERSION = '0.1.2-dev';
 
     // Reserve some variables
     protected $_config     = array();
@@ -321,7 +321,7 @@ class UberTools {
      * @access  public
      */
     public function setPage($page) {
-        $this->_page = $page
+        $this->_page = $page;
 
         return $this;
     }
