@@ -573,17 +573,17 @@ class UberTools {
 
         // Set defaults thumbnail width if not specified
         if ($thumbWidth === NULL) {
-            $thumbWidth = $this->_config['thumbnail_width'];
+            $thumbWidth = $this->_config['thumbnail']['width'];
         }
 
         // Set defaults thumbnail height if not specified
         if ($thumbHeight === NULL) {
-            $thumbHeight = $this->_config['thumbnail_height'];
+            $thumbHeight = $this->_config['thumbnail']['height'];
         }
 
         // Set defaults thumbnail height if not specified
         if ($quality === NULL) {
-            $quality = $this->_config['thumbnail_quality'];
+            $quality = $this->_config['thumbnail']['quality'];
         }
 
         // MD5 hash of source image path
