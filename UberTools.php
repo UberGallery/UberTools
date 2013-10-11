@@ -41,13 +41,6 @@ class UberTools {
         // Get timestamp for the current time
         $this->_now = time();
 
-        // Sanitize input and set current page
-        if (isset($_GET['page'])) {
-            $this->_page = (integer) $_GET['page'];
-        } else {
-            $this->_page = 1;
-        }
-
         // Set class directory constant
         if(!defined('__DIR__')) {
             define('__DIR__', dirname(__FILE__));
@@ -85,24 +78,29 @@ class UberTools {
 
 
     /**
+     * Apply configuration options
      *
+     * @param aray $config Array of config options
+     * @return object Self
+     * @access public
      */
     public function loadConfig($config) {
 
-        // Apply configuration options
-        $this->setCacheExpiration($config['cache_expiration']);
+        $this->setThumbnailDir($config['thumbnail_dir']);
+        $this->setThumbnailSize($config['thumbnail_width'], $config['thumbnail_height']);
+        $this->setThumbnailQuality($config['thumbnail_quality']);
+        $this->setTheme($config['theme']);
         $this->setPaginatorThreshold($config['paginator_threshold']);
-        $this->setThumbSize($config['thumbnail_width'], $config['thumbnail_height']);
-        $this->setThumbQuality($config['thumbnail_quality']);
-        $this->setThemeName($config['theme_name']);
         $this->setSortMethod($config['images_sort_by'], $config['reverse_sort']);
-        $this->setCacheDirectory($this->_appDir . '/cache');
+        $this->setCacheExpiration($config['cache_expiration']);
 
         if ($config['enable_pagination']) {
             $this->setImagesPerPage($config['images_per_page']);
         } else {
             $this->setImagesPerPage(0);
         }
+
+        return $this;
 
     }
 
@@ -139,7 +137,10 @@ class UberTools {
      * @return array File listing and statistics for specified directory
      * @access public
      */
-    public function readImageDirectory($directory) {
+    public function readImageDirectory($directory, $page = 1) {
+
+        // Set page number
+        $this->setPage($page);
 
         // Set relative image directory
         $this->setRelativeImageDirectory($directory);
@@ -313,14 +314,14 @@ class UberTools {
 
 
     /**
-     * Set cache expiration time in minutes
+     * Set the current page number
      *
-     * @param int $time Cache expiration time in minutes (default = 0)
-     * @return object Self
-     * @access public
+     * @param int $page Page number
+     * @return  object Self
+     * @access  public
      */
-    public function setCacheExpiration($time = 0) {
-        $this->_config['cache_expire'] = $time;
+    public function setPage($page) {
+        $this->_page = $page
 
         return $this;
     }
@@ -341,6 +342,20 @@ class UberTools {
 
 
     /**
+     * Set the thumbnail directory path
+     *
+     * @param string $directory Cache directory path
+     * @return object Self
+     * @access public
+     */
+    public function setThumbnailDirectory($directory) {
+        $this->_config['thumbnail_dir'] = realpath($directory);
+
+        return $this;
+    }
+
+
+    /**
      * Set thumbnail width and height in pixels
      *
      * @param int $width Thumbnail width in pixels (default = 100)
@@ -348,7 +363,7 @@ class UberTools {
      * @return object Self
      * @access public
      */
-    public function setThumbSize($width = 100, $height = 100) {
+    public function setThumbnailSize($width = 100, $height = 100) {
         $this->_config['thumbnail']['width'] = $width;
         $this->_config['thumbnail']['height'] = $height;
 
@@ -364,7 +379,7 @@ class UberTools {
      * @return object Self
      * @access public
      */
-    public function setThumbQuality($quality = 75) {
+    public function setThumbnailQuality($quality = 75) {
         $this->_config['thumbnail']['quality'] = $quality;
 
         return $this;
@@ -372,14 +387,28 @@ class UberTools {
 
 
     /**
-     * Set theme name
+     * Set theme
      *
      * @param string $name Theme name (default = uber-blue)
      * @return object Self
      * @access public
      */
-    public function setThemeName($name = 'uber-blue') {
+    public function setTheme($name = 'uber-blue') {
         $this->_config['theme_name'] = $name;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the paginator threshold
+     *
+     * @param int $threshold Paginator threshold value (default = 10)
+     * @return object Self
+     * @access public
+     */
+    public function setPaginatorThreshold($threshold = 10) {
+        $this->_config['threshold'] = $threshold;
 
         return $this;
     }
@@ -402,28 +431,14 @@ class UberTools {
 
 
     /**
-     * Set the cache directory name
+     * Set cache expiration time in minutes
      *
-     * @param string $directory Cache directory name
+     * @param int $time Cache expiration time in minutes (default = 0)
      * @return object Self
      * @access public
      */
-    public function setCacheDirectory($directory) {
-        $this->_config['cache_dir'] = realpath($directory);
-
-        return $this;
-    }
-
-
-    /**
-     * Set the paginator threshold
-     *
-     * @param int $threshold Paginator threshold value (default = 10)
-     * @return object Self
-     * @access public
-     */
-    public function setPaginatorThreshold($threshold = 10) {
-        $this->_config['threshold'] = $threshold;
+    public function setCacheExpiration($time = 0) {
+        $this->_config['cache_expire'] = $time;
 
         return $this;
     }
