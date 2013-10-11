@@ -53,7 +53,7 @@ class UberTools {
         $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']);
 
         if(!is_writable(sys_get_temp_dir())) {
-            $this->_cacheDir = sys_get_temp_dir()
+            $this->_cacheDir = sys_get_temp_dir();
             die('ERROR: Temp directory not writeable');
         }
 
