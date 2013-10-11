@@ -50,16 +50,11 @@ class UberTools {
         $this->_appDir = __DIR__;
 
         // Get the relative thumbs directory path
-        $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['cache_dir']);
+        $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']);
 
-        // Check if cache directory exists and create it if it doesn't
-        if (!file_exists($this->_config['cache_dir'])) {
-            $this->setSystemMessage('error', "Cache directory does not exist, please manually create it.");
-        }
-
-        // Check if cache directory is writeable and warn if it isn't
-        if (!is_writable($this->_config['cache_dir'])) {
-            $this->setSystemMessage('error', "Cache directory needs write permissions. If all else fails, try running: <pre>chmod 777 {$this->_config['cache_dir']}</pre>");
+        if(!is_writable(sys_get_temp_dir())) {
+            $this->_cacheDir = sys_get_temp_dir()
+            die('ERROR: Temp directory not writeable');
         }
 
     }
@@ -462,9 +457,9 @@ class UberTools {
 
         // Set index name
         if ($this->_config['img_per_page'] < 1) {
-            $this->_index = $this->_config['cache_dir'] . '/' . md5($directory) . '-' . 'all.index';
+            $this->_index = $this->_cacheDir . '/' . sha1($directory) . '-' . 'all.index';
         } else {
-            $this->_index = $this->_config['cache_dir'] . '/' . md5($directory) . '-' . $this->_page . '.index';
+            $this->_index = $this->_cacheDir . '/' . sha1($directory) . '-' . $this->_page . '.index';
         }
 
         return $this;
@@ -510,7 +505,7 @@ class UberTools {
     private function _readDirectory($directory, $paginate = true) {
 
         // Set index path
-        $index = $this->_config['cache_dir'] . '/' . md5($directory) . '-' . 'files' . '.index';
+        $index = $this->_cacheDir . '/' . sha1($directory) . '-' . 'files' . '.index';
 
         // Read directory array
         $dirArray = $this->_readIndex($index);
@@ -603,7 +598,7 @@ class UberTools {
         $fileName = $thumbWidth . 'x' . $thumbHeight . '-' . $quality . '-' . $fileHash . '.' . $fileExtension;
 
         // Build thumbnail destination path
-        $destination = $this->_config['cache_dir'] . '/' . $fileName;
+        $destination = $this->_config['thumbnail_dir'] . '/' . $fileName;
 
         // If file is cached return relative path to thumbnail
         if ($this->_isFileCached($destination)) {
