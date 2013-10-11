@@ -48,14 +48,13 @@ class UberTools {
         // Set application directory
         $this->_appDir = __DIR__;
 
-        // Get the relative thumbs directory path
-        // $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']);
-
+        // Check if temp dir is writable
         if(!is_writable(sys_get_temp_dir())) {
-            $this->_cacheDir = sys_get_temp_dir();
-            die('ERROR: Temp directory not writeable');
+            throw new Exception('Temp directory not writeable');
         }
 
+        // Set cache dir to system temp dir
+        $this->_cacheDir = sys_get_temp_dir();
     }
 
 
