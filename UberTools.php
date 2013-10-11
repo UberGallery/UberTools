@@ -25,7 +25,6 @@ class UberTools {
     protected $_imgDir     = NULL;
     protected $_appDir     = NULL;
     protected $_index      = NULL;
-    protected $_rThumbsDir = NULL;
     protected $_rImgDir    = NULL;
     protected $_now        = NULL;
 
@@ -50,7 +49,7 @@ class UberTools {
         $this->_appDir = __DIR__;
 
         // Get the relative thumbs directory path
-        $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']);
+        // $this->_rThumbsDir = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']);
 
         if(!is_writable(sys_get_temp_dir())) {
             $this->_cacheDir = sys_get_temp_dir();
@@ -602,7 +601,7 @@ class UberTools {
 
         // If file is cached return relative path to thumbnail
         if ($this->_isFileCached($destination)) {
-            $relativePath = $this->_rThumbsDir . '/' . $fileName;
+            $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']); . '/' . $fileName;
             return $relativePath;
         }
 
@@ -660,7 +659,7 @@ class UberTools {
         }
 
         // Return relative path to thumbnail
-        $relativePath = $this->_rThumbsDir . '/' . $fileName;
+        $relativePath = $this->_getRelativePath(getcwd(), $this->_config['thumbnail_dir']); . '/' . $fileName;
         return $relativePath;
     }
 
