@@ -215,7 +215,7 @@ class UberTools {
      */
     public function getThemeName() {
         // Return the theme name
-        return $this->_config['theme_name'];
+        return $this->_config['theme'];
     }
 
 
@@ -229,13 +229,13 @@ class UberTools {
     public function getThemePath($absolute = false) {
         if ($absolute) {
             // Set the theme path
-            $themePath = $this->_appDir . '/themes/' . $this->_config['theme_name'];
+            $themePath = $this->_appDir . '/themes/' . $this->_config['theme'];
         } else {
             // Get relative path to application dir
             $realtivePath = $this->_getRelativePath(getcwd(), $this->_appDir);
 
             // Set the theme path
-            $themePath = $realtivePath . '/themes/' . $this->_config['theme_name'];
+            $themePath = $realtivePath . '/themes/' . $this->_config['theme'];
         }
 
         return $themePath;
@@ -386,8 +386,8 @@ class UberTools {
      * @return object Self
      * @access public
      */
-    public function setTheme($name = 'uber-blue') {
-        $this->_config['theme_name'] = $name;
+    public function setTheme($name = 'uber-neo') {
+        $this->_config['theme'] = $name;
 
         return $this;
     }
