@@ -290,7 +290,7 @@ class UberTools {
      * @return  object Self
      * @access  public
      */
-    public function setPage($page) {
+    public function setPage($page = 1) {
         $this->_page = $page;
 
         return $this;
@@ -318,7 +318,7 @@ class UberTools {
      * @return object Self
      * @access public
      */
-    public function setThumbnailDirectory($directory) {
+    public function setThumbnailDirectory($directory = 'thumbnails') {
         $this->_config['thumbnail_dir'] = realpath($directory);
 
         return $this;
